@@ -33,11 +33,13 @@ class ActiveRecordFoo < ActiveRecord::Base
   has_many :items, :class_name => "ActiveRecordFoo", :foreign_key => 'belonger_id'
   belongs_to :master, :class_name => "ActiveRecordFoo", :foreign_key => 'belonger_id'
 
+  validate :do_validate
+  
   def self.veneer_spec_reset!
     delete_all
   end
 
-  def validate
+  def do_validate
     errors.add(:name, "Name cannot be 'invalid'") if name == "invalid"
   end
 
